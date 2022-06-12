@@ -15,7 +15,7 @@ export async function getCourseById(id){
 }
 
 export async function deleteCourse(id){
-    const res = await query("DELETE FROM courses WHERE course_id = $1 RETURNING *", [id])
+    const res = await query("DELETE FROM courses WHERE course_id = $1 RETURNING *", [id]);
     return res.rows;
 }
 
@@ -29,4 +29,15 @@ export async function selectDistinctCategory(){
     return res.rows;
 }
 
+export async function getAllCoursesInCategory(category){
+    const res = await query('SELECT * FROM courses WHERE LOWER(category) = LOWER($1)' , [category]);
+    return res.rows;
+}
   
+export async function getAllCoursesInCategoryWithLimit(category, limit){
+    const res = await query('SELECT * FROM courses WHERE LOWER(category) = LOWER($1) ORDER BY course_id DESC LIMIT $2', [category, limit]);
+    return res.rows;
+}
+
+
+// 'SELECT * FROM courses WHERE category =  ORDER BY course_id LIMIT $2'

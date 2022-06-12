@@ -4,7 +4,19 @@ const router = express.Router();
 
 
 router.get("/", function(req, res){
-    res.json({payload: "Carts Here!!!!"})
+
+    try{
+        res.json({
+            success: true,
+            payload: "Carts Here!!!!"})
+    }
+    catch (err) {
+        console.log(err);
+        res.json({
+          success: false,
+          payload: "Sorry I couldnt get the Payload!",
+        });
+      }
 })
 
 
