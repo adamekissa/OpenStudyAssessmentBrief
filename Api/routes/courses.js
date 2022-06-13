@@ -108,8 +108,8 @@ router.put("/:id", async function(req, res){
       }
 })
 
-router.delete("/:id", async function(req, res){
-    const id = Number(req.params.id);
+router.delete("/:course_id", async function(req, res){
+    const id = Number(req.params.course_id);
     try{
         const courseToDelete = deleteCourse(id);
         res.json({success: true, 
