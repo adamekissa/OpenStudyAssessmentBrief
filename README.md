@@ -52,3 +52,4 @@ If I had more time to work on this project,
 1. I would like to add all relevant routes for the carts endpoint.
 2. I would like to finish writing test for all the available routes
 3. I would like to finish all the error handling
+4.. I would like to add extra layer of validation to both the http request and react form 
