@@ -1,6 +1,6 @@
 # OpenStudyAssessmentBrief
 
-Hello and thank you for the opportunity once more.
+Hello,
 
 This project is a a REST Api which will help it users to utilize requested course data.
 
