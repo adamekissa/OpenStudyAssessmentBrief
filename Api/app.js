@@ -23,7 +23,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use('/courses', coursesRouter);
 app.use('/carts', cartsRouter);
 
-
+app.get('/', function(req, res, next){
+  res.json({Message: "WELCOME TO THE OPEN STUDY COLLEGE ASSESSMENT :) "})
+})
 app.use(function (req, res, next) {
   res.status(404).json({message: "Nothing found, sorry"})
 })
