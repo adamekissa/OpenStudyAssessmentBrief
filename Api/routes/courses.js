@@ -28,7 +28,7 @@ router.get("/",  async function(req, res){
 })
 
 //GET a specific course based on ID.
-router.get("/:course_id", param("course_id").isString(), async function(req, res){
+router.get("/:course_id", param("course_id").isInt(), async function(req, res){
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
