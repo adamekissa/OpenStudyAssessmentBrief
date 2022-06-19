@@ -28,7 +28,11 @@ router.get("/",  async function(req, res){
 })
 
 //GET a specific course based on ID.
-router.get("/:course_id", async function(req, res){
+router.get("/:course_id", param("course_id").isString(), async function(req, res){
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
         const id = Number(req.params.course_id);
     try{
         const courseFoundById = await getCourseById(id);
