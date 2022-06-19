@@ -32,7 +32,7 @@ router.get("/:course_id", async function(req, res){
         const id = Number(req.params.course_id);
     try{
         const courseFoundById = await getCourseById(id);
-        if(courseFoundById == []){
+        if(courseFoundById === []){
           res.json({
             success: false,
             payload: "0 courses in this category!"
