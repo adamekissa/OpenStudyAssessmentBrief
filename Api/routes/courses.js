@@ -1,12 +1,20 @@
 import express from "express";
 const router = express.Router();
 import {getAllCourses, insertCourse, getCourseById, updateCourses, deleteCourse, selectDistinctCategory, getAllCoursesInCategory, getAllCoursesInCategoryWithLimit} from "../model/courses.js";
-
+import { param, body, validationResult } from "express-validator";
 
 //GET all Courses
-router.get("/", async function(req, res){
+router.get("/",  async function(req, res){
+
     try{
         const allCourses = await getAllCourses();
+        if (allCourses === []){
+          res.json({
+            success: false,
+            payload: "0 courses in this category!"
+          })
+          return;
+        }
         res.json({success: true,
                   payload: allCourses});
     }
@@ -24,8 +32,16 @@ router.get("/:course_id", async function(req, res){
         const id = Number(req.params.course_id);
     try{
         const courseFoundById = await getCourseById(id);
-        res.json({success: true,
-                  payload: courseFoundById});
+        if(courseFoundById == []){
+          res.json({
+            success: false,
+            payload: "0 courses in this category!"
+          })
+          return;
+        } else{
+            res.json({success: true,
+            payload: courseFoundById});
+        }
     }
     catch (err) {
         console.log(err);
@@ -71,7 +87,12 @@ router.get("/courses/:category/:limit", async function(req, res){
   res.json({success: true, payload: cousesInCategoryLimit});
 })
 
-router.post("/", async function(req, res){
+router.post("/", body("title").isString(),  body("category").isString(), async function(req, res){
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
     const title = req.body.title;
     const category = req.body.category;
     try{
@@ -89,7 +110,12 @@ router.post("/", async function(req, res){
 
 })
 
-router.put("/:id", async function(req, res){
+router.put("/:id", body("title").isString(),  body("category").isString(), async function(req, res){
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
     const id = Number(req.params.id);
     const title = req.body.title;
     const category = req.body.category;
