@@ -13,7 +13,6 @@ router.get("/",  async function(req, res){
             success: false,
             payload: "0 courses in this category!"
           })
-          return;
         }
         res.json({success: true,
                   payload: allCourses});
@@ -28,7 +27,7 @@ router.get("/",  async function(req, res){
 })
 
 //GET a specific course based on ID.
-router.get("/:course_id", param("course_id").isInt(), async function(req, res){
+router.get("/:course_id", param("course_id").isNumeric(), async function(req, res){
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -41,7 +40,6 @@ router.get("/:course_id", param("course_id").isInt(), async function(req, res){
             success: false,
             payload: "0 courses in this category!"
           })
-          return;
         } else{
             res.json({success: true,
             payload: courseFoundById});
